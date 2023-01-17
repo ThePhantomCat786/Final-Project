@@ -16,8 +16,8 @@ function setup() {
 
 	//mainMenu = new menu()
 
-	pX = 640
-	pY = -120
+	pX = 540
+	pY = 0
 	fgX = 0
 	collision = false
 
@@ -42,7 +42,7 @@ function draw() {
 
 	gY = world.findHighest(pX)
 
-	collision = terrainCollision(pX, pY, player.getW(), player.getH(), world.getGx(), gY, world.getGw(), world.getGh()) 
+	collision = terrainCollision(player.getPx(), player.getY(), player.getW(), player.getH(), world.getGx(), gY, world.getGw(), world.getGh()) 
 
 	player.renderPlayer()
 	player.playerMovement(collision)
