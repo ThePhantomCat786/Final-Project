@@ -13,6 +13,7 @@ function preload() {
 function setup() {
 
 	createCanvas(WINDOW_WIDTH, WINDOW_HEIGHT)
+	chicken = 4
 
 	//mainMenu = new menu()
 
