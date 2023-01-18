@@ -55,7 +55,7 @@ class Enemy {
 
         }
 
-        if (this.y > 0 && enemyTerrainCollide == false && this.y < 400) {
+        if (enemyTerrainCollide == true && this.y < 400) {
 
             this.veloY += 2.5
             this.y = this.y + this.veloY
@@ -64,7 +64,7 @@ class Enemy {
 
         }
 
-        this.veloY = 0
+        //this.veloY = 0
 
     }
 
@@ -98,7 +98,7 @@ class Enemy {
 
         }
 
-        if (this.moveCounter == 30) {
+        if (this.moveCounter == 1800) {
 
             this.moveCounter = 0
 
