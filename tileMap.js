@@ -194,7 +194,7 @@ class tileMap {
 
                     //console.log(this.GRASS_ARRAY[i])
 
-                    //rect(this.w * r - pX, this.GRASS_ARRAY[i]*16, 48, 16)
+                    rect(this.w * r - pX, this.GRASS_ARRAY[i]*16, 48, 16)
 
                     let n = (this.GRASS_ARRAY[i] * 16)
 
@@ -232,6 +232,37 @@ class tileMap {
         //     }
 
         // }
+
+    }
+
+    findHighestEnemy(eX) {
+
+        for (var r = (int((eX/16) + eX/16)); r > 0; r--) {
+
+            for (let i = 0; i < this.rows; i++) {
+
+                if (this.MAP_ARRAY[r][this.GRASS_ARRAY[i]] == "g") {
+
+                    //console.log(this.w*r - pX)
+
+                    //return terrainCollision(this.w * r - (pX), player.getY(), player.getW(), player.getH(), world.getGx(), this.GRASS_ARRAY[i]*16, world.getGw(), world.getGh())
+
+                    //console.log(this.GRASS_ARRAY[i])
+
+                    rect(this.w * r - eX, this.GRASS_ARRAY[i]*16, 52, 16)
+
+                    let n = (this.GRASS_ARRAY[i] * 16)
+
+                    console.log(n)
+
+                    return(n - (n%16))
+
+                }
+
+        
+            }
+
+        }
 
     }
 
