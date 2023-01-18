@@ -10,6 +10,7 @@ class Enemy {
         this.h = 50
 
         this.veloX = 0
+        this.veloY = 0
         this.randMove = 0
         this.moveCounter = 0
 
@@ -55,7 +56,7 @@ class Enemy {
 
         }
 
-        if (enemyTerrainCollide == true && this.y < 400) {
+        if (enemyTerrainCollide == false && this.y < 400) {
 
             this.veloY += 2.5
             this.y = this.y + this.veloY
@@ -88,7 +89,7 @@ class Enemy {
 
             if (this.atkTF = true) {
 
-                console.log("OW")
+                //console.log("OW")
 
             }
 
@@ -127,6 +128,12 @@ class Enemy {
     getH() {
 
         return this.h
+
+    }
+
+    setY(y) {
+
+        this.y = y
 
     }
 

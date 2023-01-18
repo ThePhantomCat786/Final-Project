@@ -1,6 +1,6 @@
 function terrainCollision(pX, pY, pW, pH, gX, gY, gW, gH) {
 
-    gW = 48 
+    gW = 52
 
     // fill(255)
     // //rect(pX, gY, gW, gH)
@@ -20,9 +20,9 @@ function terrainCollision(pX, pY, pW, pH, gX, gY, gW, gH) {
 
 }
 
-function enemyTerrainCollision(eX, eY, eW, eH, gX, gY, gW, gH) {
+function terrainCollisionEnemy(eX, eY, eW, eH, gX, gY, gW, gH) {
 
-    gW = 48 
+    gW = 52
 
     // fill(255)
     // //rect(pX, gY, gW, gH)
@@ -34,11 +34,11 @@ function enemyTerrainCollision(eX, eY, eW, eH, gX, gY, gW, gH) {
 
         eY = eY - 16
 
-        //player.setY(pY)
+        enemy.setY(eY)
 
     }
 
-    return (eX < gX + gW && eX + eW > gX && eY < gY + gH && eY + eH > gY) 
+    return (eX < eX + gW && eX + eW > eX && eY < gY + gH && eY + eH > gY) 
 
 }
 

@@ -59,9 +59,9 @@ function draw() {
 	eX = enemy.getX()
 	eY = enemy.getY()
 
-	egY = world.findHighest(eX)
+	egY = world.findHighestEnemy(eX)
 
-	enemyTerrainCollilde = enemyTerrainCollision(enemy.getX(), enemy.getY(), enemy.getW(), enemy.getH(), player.getX(), egY, world.getGw(), world.getGh()) 
+	enemyTerrainCollilde = terrainCollisionEnemy(enemy.getX(), enemy.getY(), enemy.getW(), enemy.getH(), world.getGx(), egY, world.getGw(), world.getGh()) 
 
 	enemy.renderEnemy()
 	enemy.enemyMovement(pX, pY, enemyTerrainCollide)
