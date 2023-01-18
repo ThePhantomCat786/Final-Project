@@ -1,51 +1,56 @@
 class Player {
 
-    constructor(x, y) {
+    constructor(x, y, w, h) {
 
         this.x = x
         this.bgX = x
         this.y = y
-        this.w = 50
-        this.h = 100
+        this.w = w
+        this.h = h
         this.veloX = 0
         this.veloY = 0
 
         this.bgVeloX = 0
         
         this.jumpRestrict = 0
+        this.jumperSpeed = 0
 
     }
 
     renderPlayer() {
 
-        rect(this.x, this.y, this.w, this.h)
+        rect(540, this.y, this.w, this.h)
 
     }
 
     playerMovement(collision) {
 
         // If the key is 'd' then we increase velocity quickly by 0.45
-		if (keyIsDown(68) && this.veloX <= 4 && this.bgVeloX <= 4 && this.x <= 1220) {
+		if (keyIsDown(68) && this.bgVeloX <= 4 && this.bgX <= 1220) {
 	
-			this.veloX += 0.8
-            this.bgVeloX += 0.8
+			//this.veloX += 0.8
+            this.bgVeloX += (0.8 + (this.jumperSpeed))
 
-		// If the key is 'a' then we decrease velocity quickly by 0.45
-        } else if (keyIsDown(65) && this.veloX >= -4 && this.bgVeloX >= -4 && this.bgX >= 520) {
+        } else if (keyIsDown(68) && this.bgVeloX <= 4 && this.bgX > 1220 && this.bgX <= 4720 ) {
+
+            this.bgVeloX += (0.8 + (this.jumperSpeed))
+        
+            // If the key is 'a' then we decrease velocity quickly by 0.45
+        } else if (keyIsDown(65) && this.bgVeloX >= -4 && this.bgX >= 520) {
 	
-			this.veloX -= 0.8
-            this.bgVeloX -= 0.8
+			//this.veloX -= 0.8
+            this.bgVeloX -= (0.8 + (this.jumperSpeed))
 
-        } else if (keyIsDown(65) && this.veloX >= -4 && this.x >= 60) {
+        } else if (keyIsDown(65) && this.bgVeloX >= -4 && this.bgX > 1220 && this.bgX <= 4720 ) {
 
-            this.veloX -= 0.8
+            this.bgVeloX -= (0.8 + (this.jumperSpeed))
 
         }
 		// Otherwise the player velocity will be slowed to 0 overtime
 		else {
 	
-			this.veloX *= 0.5
-            this.bgVeloX *= 0.9
+			//this.veloX *= 0.0000000000001
+            this.bgVeloX *= 0.5
 			
 		}
 
@@ -65,6 +70,8 @@ class Player {
 
             this.jumpRestrict++
 
+            this.jumperSpeed = 3
+
         } else {
 
             if (collision == false && this.y < 620) {
@@ -74,6 +81,7 @@ class Player {
 
             } else {
 
+                this.jumperSpeed = 0
                 this.jumpRestrict = 0
 
             }
@@ -84,7 +92,6 @@ class Player {
 
         this.x = this.x + this.veloX
         this.bgX = this.bgX + this. bgVeloX
-        console.log(this.x)
 
     }
 
@@ -117,5 +124,11 @@ class Player {
         return this.x
 
     }
+
+    setY(pY) {
+
+        this.y = pY
+
+    } 
 
 }

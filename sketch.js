@@ -18,15 +18,24 @@ function setup() {
 
 	pX = 540
 	pY = 0
+	pW = 50
+	pH = 100
 	fgX = 0
-	collision = false
+
+	eX = 0
+	eY = 0
+
+	terrainCollide= false
+	enemyTerrainCollide = false
 
 	world = new tileMap(5120, 46, 16, 16, pX)
 	world.createMap()
 
-	player = new Player(pX, pY)
+	player = new Player(pX, pY, pW, pH)
+	enemy = new Enemy()
 
 	gY = 0
+	egY = 0
 
 }
 
@@ -42,9 +51,22 @@ function draw() {
 
 	gY = world.findHighest(pX)
 
-	collision = terrainCollision(player.getPx(), player.getY(), player.getW(), player.getH(), world.getGx(), gY, world.getGw(), world.getGh()) 
+	terrainCollide = terrainCollision(player.getPx(), player.getY(), player.getW(), player.getH(), world.getGx(), gY, world.getGw(), world.getGh()) 
 
 	player.renderPlayer()
-	player.playerMovement(collision)
+	player.playerMovement(terrainCollide)
+
+	eX = enemy.getX()
+	eY = enemy.getY()
+
+	egY = world.findHighest(eX)
+
+	enemyTerrainCollilde = terrainCollision(enemy.getX(), enemy.getY(), enemy.getW(), enemy.getH(), world.getGx(), egY, world.getGw(), world.getGh()) 
+
+	enemy.renderEnemy()
+	enemy.enemyMovement(pX, pY, enemyTerrainCollide)
+
+	// Attack checks
+	enemy.enemyAttack(pX, pY, pW, pH)
 
 }

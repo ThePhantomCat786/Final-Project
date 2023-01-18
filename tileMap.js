@@ -107,7 +107,7 @@ class tileMap {
 
                     this.renderPos = this.w * r - (pX)
 
-                    this.renderPos = this.renderPos + 0.8
+                    this.renderPos += 0.8
 
                     image(g, this.renderPos, this.h * c, this.w, this.h)
 
@@ -115,7 +115,7 @@ class tileMap {
 
                     this.renderPos = this.w * r - (pX)
 
-                    this.renderPos = this.renderPos + 0.8
+                    this.renderPos += 0.8
 
                     image(g2, this.renderPos, this.h * c, this.w, this.h)
 
@@ -182,7 +182,7 @@ class tileMap {
 
     findHighest(pX) {
 
-        for (var r = (int(pX/16) + 40); r < (int(pX/16) + 41); r++) {
+        for (var r = (int(pX/16) + 34); r < (int(pX/16) + 35); r++) {
 
             for (let i = 0; i < this.rows; i++) {
 
@@ -194,11 +194,11 @@ class tileMap {
 
                     //console.log(this.GRASS_ARRAY[i])
 
-                    rect(this.w * r - (pX), this.GRASS_ARRAY[i]*16, 16, 16)
+                    //rect(this.w * r - pX, this.GRASS_ARRAY[i]*16, 48, 16)
 
-                    let n = (i * 16)
+                    let n = (this.GRASS_ARRAY[i] * 16)
 
-                    return (n - (n%16))
+                    return(n - (n%16))
 
                 }
 
@@ -210,28 +210,28 @@ class tileMap {
 
         //console.log(pX)
 
-        for (let i = 0; i <= 42; i++) {
+        // for (let i = 0; i <= 42; i++) {
 
-            // if (this.MAP_ARRAY[][] == "g") {
-            // }
+        //     // if (this.MAP_ARRAY[][] == "g") {
+        //     // }
 
-            if (this.MAP_ARRAY[int(pX/16)][i] == "g") {
+        //     if (this.MAP_ARRAY[int(pX/16)][i] == "g") {
    
-                //console.log(this.MAP_ARRAY[int(pX/16)][i])
+        //         //console.log(this.MAP_ARRAY[int(pX/16)][i])
 
-                //console.log(int((pX + 640) / 16))
+        //         //console.log(int((pX + 640) / 16))
 
-                //if ((pX/16) % 2)
-                //console.log(i)
-                //console.log(i*16)
-                //console.log(int(pX/16))
-                let n = (i * 16)
-                //console.log(n + (n%16))
-                return (n - (n%16))
+        //         //if ((pX/16) % 2)
+        //         //console.log(i)
+        //         //console.log(i*16)
+        //         //console.log(int(pX/16))
+        //         let n = (i * 16)
+        //         //console.log(n + (n%16))
+        //         return (n - (n%16))
 
-            }
+        //     }
 
-        }
+        // }
 
     }
 
