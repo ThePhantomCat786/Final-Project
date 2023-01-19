@@ -48,6 +48,7 @@ function setup() {
 
 	gY = 0
 	egY = 0
+	enemyStatus = 0
 
 }
 
@@ -70,6 +71,12 @@ function draw() {
 	player.playerMovement(terrainCollide)
 
 	for (var i = 0; i <= totalEnemies; i++) {
+
+		if (enemy[i].getEnemyStatus() == true) {
+
+			//set the enemy counter variable please
+
+		}
 
 		enemy[i].setEnemies(totalEnemies)
 

@@ -14,13 +14,14 @@ class Enemy {
         this.randMove = 0
         this.moveCounter = 0
         this.speedCount = 0
-        this.totalEnemies = 5
+        this.totalEnemies = 1
         this.time = false
         this.respawnTime = 0
         this.respawnMax = 1600
         this.wave = 1
         this.addEnemy = false
         this.enemyCounter = 0
+        this.enemyDead = false
 
         // Stats
         this.level = int(random(1, 4))
@@ -54,6 +55,8 @@ class Enemy {
         if (this.time == true) {
 
             this.respawnTime++
+
+            console.log(this.respawnTime)
 
         }
 
@@ -136,9 +139,6 @@ class Enemy {
         if (this.moveCounter == 0 && this.atkTF == true) {
 
             this.veloX -= 0.7
-            console.log("OW")
-
-            console.log(this.attack)
 
             player.takeDamage(this.attack)
 
@@ -169,7 +169,10 @@ class Enemy {
             this.render = false
             this.x = 0
 
-            this.enemyCounter++
+            this.enemyCounter = this.enemyCounter + 1
+            this.enemyDead = true
+
+            console.log(this.enemyDead)
 
             player.addLevel()
 
@@ -188,20 +191,18 @@ class Enemy {
 
     }
 
-    updateEnemyUi(totalEnemies) {
+    updateEnemyUi(totalEnemies, enemyCount) {
 
         if (this.render == true) {
 
             text("HP: " + str(this.hp), this.x, this.y - 20)
             text("WAVE " + this.wave, 600, 40)
 
-        } else if (this.render == false && this.enemyCounter == this.totalEnemies) {
+        } else if (this.render == false && enemyCount == totalEnemies) {
 
             text("TIME TO EXPLORE: " + str(this.respawnMax/60) + "s", 600, 55)
 
         }
-
-
 
     }
 
@@ -226,6 +227,12 @@ class Enemy {
     setEnemies(te) {
 
         this.totalEnemies = te
+
+    }
+
+    getEnemyStatus() {
+
+        return this.enemyDead
 
     }
 

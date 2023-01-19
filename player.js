@@ -213,8 +213,6 @@ class Player {
 
     takeDamage(dmg) {
 
-        console.log(dmg)
-
         this.hp = this.hp - dmg
 
         if (this.hp <= 0) {
