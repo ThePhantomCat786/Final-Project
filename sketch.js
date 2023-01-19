@@ -16,6 +16,9 @@ function setup() {
 
 	//mainMenu = new menu()
 
+	enemy = []
+	initX = []
+
 	pX = 540
 	pY = 0
 	pW = 50
@@ -25,14 +28,23 @@ function setup() {
 	eX = 0
 	eY = 0
 
-	terrainCollide= false
+	terrainCollide = false
 	enemyTerrainCollide = false
 
 	world = new tileMap(5120, 46, 16, 16, pX)
 	world.createMap()
 
 	player = new Player(pX, pY, pW, pH)
-	enemy = new Enemy()
+
+	totalEnemies = 5
+
+	for (i = 0; i <= totalEnemies; i++) {
+
+		initX[i] = random(1280, 1480)
+
+		enemy[i] = new Enemy(initX[i])
+		
+	}
 
 	gY = 0
 	egY = 0
@@ -54,19 +66,46 @@ function draw() {
 	terrainCollide = terrainCollision(player.getPx(), player.getY(), player.getW(), player.getH(), world.getGx(), gY, world.getGw(), world.getGh()) 
 
 	player.renderPlayer()
+	player.updatePlayerUi()
 	player.playerMovement(terrainCollide)
 
-	eX = enemy.getX()
-	eY = enemy.getY()
+	for (var i = 0; i <= totalEnemies; i++) {
 
-	egY = world.findHighestEnemy(eX)
+		enemy[i].setEnemies(totalEnemies)
 
-	enemyTerrainCollilde = terrainCollisionEnemy(enemy.getX(), enemy.getY(), enemy.getW(), enemy.getH(), world.getGx(), egY, world.getGw(), world.getGh()) 
+		eX = enemy[i].getX()
+		eY = enemy[i].getY()
+	
+		egY = world.findHighestEnemy(eX, pX)
+	
+		enemyTerrainCollilde = terrainCollisionEnemy(enemy[i].getX(), enemy[i].getY(), enemy[i].getW(), enemy[i].getH(), world.getGx(), egY, world.getGw(), world.getGh(), i) 
+	
+		enemy[i].renderEnemy()
+		enemy[i].updateEnemyUi()
+		enemy[i].enemyMovement(player.getPx(), pY, enemyTerrainCollide)
+	
+		// Attack checks
+		enemy[i].enemyAttack(pX, pY, pW, pH)
+		player.playerAttack(eX, eY, enemy[i].getW(), enemy[i].getH(), i)
 
-	enemy.renderEnemy()
-	enemy.enemyMovement(pX, pY, enemyTerrainCollide)
+		if (enemy[i].enemyAdder(totalEnemies) == true) {
 
-	// Attack checks
-	enemy.enemyAttack(pX, pY, pW, pH)
+			totalEnemies = totalEnemies + 1
+
+			enemy.push(new Enemy(random(2400, 2500)))
+
+		}
+
+	}
+
+	if (player.gameOver() == true) {
+
+		fill(0)
+		rect(0, 0, 2560, 1440)
+
+		fill(255)
+		text("YOU DIED", 600, 360)
+
+	}
 
 }

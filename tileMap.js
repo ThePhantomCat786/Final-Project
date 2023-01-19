@@ -235,6 +235,40 @@ class tileMap {
 
     }
 
+    findHighestEnemy(eX, pX) {
+
+        for (var r = (int((eX/16) + (pX/16))); r > 0; r--) {
+
+            for (let i = 0; i < this.rows; i++) {
+
+                if (this.MAP_ARRAY[r][this.GRASS_ARRAY[i]] == "g") {
+
+                    //console.log(this.w*r - pX)
+
+                    //return terrainCollision(this.w * r - (pX), player.getY(), player.getW(), player.getH(), world.getGx(), this.GRASS_ARRAY[i]*16, world.getGw(), world.getGh())
+
+                    //console.log(this.GRASS_ARRAY[i])
+
+                    //rect(eX, this.GRASS_ARRAY[i]*16, 52, 16)
+
+                    //console.log(int((eX/16) + (pX/16)))
+
+                    let n = (this.GRASS_ARRAY[i] * 16)
+
+                    //console.log(n)
+                    //console.log(eX)
+
+                    return(n - (n%16))
+
+                }
+
+        
+            }
+
+        }
+
+    }
+
     getGx() {
 
         return this.gX

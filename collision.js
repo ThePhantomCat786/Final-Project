@@ -8,7 +8,7 @@ function terrainCollision(pX, pY, pW, pH, gX, gY, gW, gH) {
 
     //console.log(gY)
 
-    if (gY < (pY + 90)) {
+    if (gY <= (pY + 90)) {
 
         pY = pY - 16
 
@@ -20,25 +20,27 @@ function terrainCollision(pX, pY, pW, pH, gX, gY, gW, gH) {
 
 }
 
-function terrainCollisionEnemy(eX, eY, eW, eH, gX, gY, gW, gH) {
+function terrainCollisionEnemy(eX, eY, eW, eH, gX, gY, gW, gH, i) {
 
     gW = 52
 
     // fill(255)
-    // //rect(pX, gY, gW, gH)
+    // rect(eX, gY, gW, gH)
     // fill(0)
 
-    //console.log(gY)
+    if (gY <= (eY + 50)) {
 
-    if (gY < (eY + 90)) {
+        eY = eY - 64
 
-        eY = eY - 16
-
-        enemy.setY(eY)
+        enemy[i].setY(eY)
 
     }
 
-    return (eX < eX + gW && eX + eW > eX && eY < gY + gH && eY + eH > gY) 
+    if (eX < eX + gW && eX + eW > eX && eY < gY + gH && eY + eH > gY) {
+
+        return true
+
+    }
 
 }
 
@@ -47,6 +49,10 @@ function enemyCollision(pX, pY, pW, pH, eX, eY, eW, eH) {
     if (pX < eX + eW && pX + pW > eX && pY < eY + eH && pY + pH > eY) {
 
         return true
+
+    } else {
+
+        return false
 
     }
 
