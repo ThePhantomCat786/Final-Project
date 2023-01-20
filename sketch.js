@@ -49,6 +49,7 @@ function setup() {
 	gY = 0
 	egY = 0
 	enemyStatus = 0
+	enemyCounter = 0
 
 }
 
@@ -72,13 +73,18 @@ function draw() {
 
 	for (var i = 0; i <= totalEnemies; i++) {
 
-		if (enemy[i].getEnemyStatus() == true) {
+		// if (enemy[i].getEnemyStatus() == true) {
 
-			//set the enemy counter variable please
+		// 	//set the enemy counter variable please
+		// 	enemyCounter = (totalEnemies/i)
 
-		}
+		// } else {
 
-		enemy[i].setEnemies(totalEnemies)
+		// 	null
+
+		// }
+
+		// enemy[i].setEnemies(totalEnemies, enemyCounter)
 
 		eX = enemy[i].getX()
 		eY = enemy[i].getY()

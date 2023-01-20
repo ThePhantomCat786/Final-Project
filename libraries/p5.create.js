@@ -27,7 +27,7 @@ function createsprite(img, x, y,layer, tag) {
     return sprite;
 
 }
-function createanimation(sprite, spritepath, ext ,numberofsprites, timestamp, state){
+function createanimation(sprite, spritepath, ext, numberofsprites, timestamp, state){
     framesarray = []
     for(let i = 0; i < numberofsprites; i++){
         spritetoadd = loadImage(spritepath + (i + 1) + ext)

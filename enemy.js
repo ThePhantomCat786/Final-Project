@@ -14,7 +14,7 @@ class Enemy {
         this.randMove = 0
         this.moveCounter = 0
         this.speedCount = 0
-        this.totalEnemies = 1
+        this.totalEnemies = 0
         this.time = false
         this.respawnTime = 0
         this.respawnMax = 1600
@@ -56,7 +56,7 @@ class Enemy {
 
             this.respawnTime++
 
-            console.log(this.respawnTime)
+            //console.log(this.respawnTime)
 
         }
 
@@ -172,7 +172,7 @@ class Enemy {
             this.enemyCounter = this.enemyCounter + 1
             this.enemyDead = true
 
-            console.log(this.enemyDead)
+            console.log(this.enemyCounter)
 
             player.addLevel()
 
@@ -224,9 +224,13 @@ class Enemy {
 
     }
 
-    setEnemies(te) {
+    setEnemies(totalEnemy, enemyCount) {
 
-        this.totalEnemies = te
+        this.totalEnemies = 15
+        this.enemyCounter = enemyCount
+
+        console.log(this.enemyCounter)
+        //console.log(this.totalEnemies)
 
     }
 
