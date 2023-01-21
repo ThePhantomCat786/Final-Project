@@ -60,19 +60,20 @@ function draw() {
 
 	text(int(frameRate()), 20, 20)
 
-	pX = player.getX()
-	pY = player.getY()
-
-	gY = world.findHighest(pX)
-
-	terrainCollide = terrainCollision(player.getPx(), player.getY(), player.getW(), player.getH(), world.getGx(), gY, world.getGw(), world.getGh()) 
-
-	player.renderPlayer()
-	player.updatePlayerUi()
-
 	for (var i = 0; i <= totalEnemies; i++) {
 
+		pX = player.getX()
+		pY = player.getY()
+	
+		gY = world.findHighest(pX)
+	
+		terrainCollide = terrainCollision(player.getPx(), player.getY(), player.getW(), player.getH(), world.getGx(), gY, world.getGw(), world.getGh()) 
+	
+		player.renderPlayer()
+		player.updatePlayerUi()
+
 		player.playerMovement(terrainCollide, i)
+	
 
 		//enemy[i].setEnemies(totalEnemies)
 
@@ -95,9 +96,11 @@ function draw() {
 
 			totalEnemies = totalEnemies + 1
 
+			console.log(i)
+
 			enemy.push(new Enemy(random(2400, 2500)))
 
-			enemy[i].setEnemies(totalEnemies)
+			//enemy[i].setEnemies(totalEnemies)
 
 		}
 

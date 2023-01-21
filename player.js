@@ -247,6 +247,7 @@ class Player {
     battleScene() {
 
         this.bgX = 540
+        this.y = 10
 
     }
 

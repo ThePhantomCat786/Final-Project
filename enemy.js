@@ -69,8 +69,6 @@ class Enemy {
             this.x = random(2400, 2500)
             this.hp = 10 + (10 * (this.level/10))
 
-            player.battleScene()
-
             this.render = true
             this.respawnTime = 0
             this.respawnMax = this.respawnMax + 40
@@ -90,10 +88,10 @@ class Enemy {
             //this.veloX *= -0.8
             this.veloX -= 0.75
 
-        } else if (this.veloX <= 3) {
+        } else if (this.veloX <= 3 && this.x >= 0) {
 
             this.veloX += (this.speed * (this.level/2))
-            this.veloX += (this.eVeloX * 4)
+            this.veloX += (this.eVeloX * 5)
 
         }
 
@@ -140,7 +138,7 @@ class Enemy {
 
         if (this.moveCounter == 0 && this.atkTF == true) {
 
-            this.veloX -= 0.7
+            //this.veloX -= 0.7
 
             player.takeDamage(this.attack)
 
@@ -169,7 +167,7 @@ class Enemy {
         if (this.hp <= 0) {
 
             this.render = false
-            this.x = -10
+            this.x = -100
 
             this.enemyCounter = this.enemyCounter + 1
             this.enemyDead = true
