@@ -11,6 +11,7 @@ class Player {
         this.veloY = 0
 
         this.bgVeloX = 0
+        this.eVeloX = 0
         
         this.jumpRestrict = 0
         this.jumperSpeed = 0
@@ -41,27 +42,31 @@ class Player {
 
     }
 
-    playerMovement(collision) {
+    playerMovement(collision, i) {
 
         // If the key is 'd' then we increase velocity quickly by 0.45
-		if (keyIsDown(68) && this.bgVeloX <= 4 && this.bgX <= 1220) {
+		if (keyIsDown(68) && this.bgVeloX <= 1.5 && this.eVeloX <= 1.75 && this.bgX <= 1220) {
 	
 			//this.veloX += 0.8
-            this.bgVeloX += (0.8 + (this.jumperSpeed))
+            this.bgVeloX += (0.08 + (this.jumperSpeed))
+            this.eVeloX += 0.08
 
-        } else if (keyIsDown(68) && this.bgVeloX <= 4 && this.bgX > 1220 && this.bgX <= 4720 ) {
+        } else if (keyIsDown(68) && this.bgVeloX <= 1.5 && this.eVeloX <= 1.75 && this.bgX > 1220 && this.bgX <= 4720 ) {
 
-            this.bgVeloX += (0.8 + (this.jumperSpeed))
+            this.bgVeloX += (0.08 + (this.jumperSpeed))
+            this.eVeloX += 0.08
         
             // If the key is 'a' then we decrease velocity quickly by 0.45
-        } else if (keyIsDown(65) && this.bgVeloX >= -4 && this.bgX >= 520) {
+        } else if (keyIsDown(65) && this.bgVeloX >= -1.5 && this.eVeloX <= 0.75 && this.bgX >= 520) {
 	
 			//this.veloX -= 0.8
-            this.bgVeloX -= (0.8 + (this.jumperSpeed))
+            this.bgVeloX -= (0.08 + (this.jumperSpeed))
+            this.eVeloX += 0.008
 
-        } else if (keyIsDown(65) && this.bgVeloX >= -4 && this.bgX > 1220 && this.bgX <= 4720 ) {
+        } else if (keyIsDown(65) && this.bgVeloX >= -1.5 && this.eVeloX <= 0.75 && this.bgX > 1220 && this.bgX <= 4720 ) {
 
-            this.bgVeloX -= (0.8 + (this.jumperSpeed))
+            this.bgVeloX -= (0.08 + (this.jumperSpeed))
+            this.eVeloX += 0.008
 
         }
 		// Otherwise the player velocity will be slowed to 0 overtime
@@ -69,8 +74,11 @@ class Player {
 	
 			//this.veloX *= 0.0000000000001
             this.bgVeloX *= 0.5
+            this.eVeloX *= 0.1
 			
 		}
+
+        enemy[i].setEnemySpeed(this.eVeloX)
 
         // if (keyIsDown(68) && this.bgVeloX <= 4 && this.bgX > 1220 && this.bgX <= 4720) {
 
@@ -84,17 +92,17 @@ class Player {
 
         if (keyIsDown(32) && this.jumpRestrict < 12) {
 
-            this.y = this.y - 4.5
+            this.y = this.y - 5.5
 
             this.jumpRestrict++
 
-            this.jumperSpeed = 3
+            this.jumperSpeed = 0.5
 
         } else {
 
-            if (collision == false && this.y < 620) {
+            if (collision == false && this.y < 620 && this.veloY < 30) {
 
-                this.veloY += 2.5
+                this.veloY += 0.5
                 this.y = this.y + this.veloY
 
             } else {

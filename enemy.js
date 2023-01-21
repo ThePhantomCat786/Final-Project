@@ -10,6 +10,7 @@ class Enemy {
         this.h = 50
 
         this.veloX = 0
+        this.eVeloX = 0
         this.veloY = 0
         this.randMove = 0
         this.moveCounter = 0
@@ -25,7 +26,7 @@ class Enemy {
 
         // Stats
         this.level = int(random(1, 4))
-        this.speed = 0.001
+        this.speed = 0.01
         this.hp = 10 + (10 * (this.level/10))
 
         // Moves
@@ -76,31 +77,29 @@ class Enemy {
 
         }
 
-        if (dist(pX, pY, this.x, this.y - 50) < 75 && dist(pX, pY, this.x, this.y - 50) >= 50 && this.speedCount != 1) {
 
-            this.veloX = this.veloX * 2
 
-            this.speedCount = 1
+        if (this.x >= (pX + 75)) {
 
-        } else if (dist(pX, pY, this.x, this.y - 50) < 50 && dist(pX, pY, this.x, this.y - 50) >= 25) {
+            this.veloX *= 0.989
 
-            this.veloX *= 0.89
+        } 
+        
+        if (this.x <= (pX - 25) && this.x >= 0) {
 
-        } else if (dist(pX, pY, this.x, this.y - 50) < 25) {
+            //this.veloX *= -0.8
+            this.veloX -= 0.75
 
-            this.veloX = 0
-
-            this.veloX -= 0.15
-
-        } else {
+        } else if (this.veloX <= 3) {
 
             this.veloX += (this.speed * (this.level/2))
+            this.veloX += (this.eVeloX * 4)
 
-            if (this.x == 2850) {
+        }
 
-                this.enemyCounter++
+        if (this.x == 2850) {
 
-            }
+            this.enemyCounter++
 
         }
 
@@ -175,7 +174,7 @@ class Enemy {
             this.enemyCounter = this.enemyCounter + 1
             this.enemyDead = true
 
-            console.log(this.enemyCounter)
+            //console.log(this.enemyCounter)
 
             player.addLevel()
 
@@ -204,6 +203,7 @@ class Enemy {
         if (this.enemyCounter == 1) {
 
             this.enemyCounter = 0
+            this.time = true
 
             console.log(this.enemyCounter)
 
@@ -224,6 +224,12 @@ class Enemy {
     setEnemies(totalEnemy) {
 
         this.totalEnemies = totalEnemy
+
+    }
+
+    setEnemySpeed(eVeloX) {
+
+        this.eVeloX = eVeloX
 
     }
 

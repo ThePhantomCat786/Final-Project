@@ -20,7 +20,7 @@ function setup() {
 	initX = []
 
 	pX = 540
-	pY = 0
+	pY = 10
 	pW = 50
 	pH = 100
 	fgX = 0
@@ -69,9 +69,10 @@ function draw() {
 
 	player.renderPlayer()
 	player.updatePlayerUi()
-	player.playerMovement(terrainCollide)
 
 	for (var i = 0; i <= totalEnemies; i++) {
+
+		player.playerMovement(terrainCollide, i)
 
 		//enemy[i].setEnemies(totalEnemies)
 
