@@ -49,6 +49,8 @@ class Enemy {
 
     enemyMovement(pX, pY, enemyTerrainCollide) {
 
+        console.log(this.x)
+
         // console.log(dist(pX, pY, this.x, this.y))
 
         // console.log(pX)
@@ -57,7 +59,7 @@ class Enemy {
 
             this.respawnTime++
 
-            console.log(this.respawnTime)
+            //console.log(this.respawnTime)
 
         }
 
@@ -140,7 +142,7 @@ class Enemy {
 
             //this.veloX -= 0.7
 
-            player.takeDamage(this.attack)
+            player.takeDamage(this.attack + (this.level / 2))
 
             this.moveCounter = 1
 
@@ -203,7 +205,7 @@ class Enemy {
             this.enemyCounter = 0
             this.time = true
 
-            console.log(this.enemyCounter)
+            //console.log(this.enemyCounter)
 
         }
 

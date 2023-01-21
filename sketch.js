@@ -90,6 +90,7 @@ function draw() {
 	
 		// Attack checks
 		enemy[i].enemyAttack(pX, pY, pW, pH)
+		console.log(pX)
 		player.playerAttack(eX, eY, enemy[i].getW(), enemy[i].getH(), i)
 
 		if (enemy[i].enemyAdder(totalEnemies) == true) {

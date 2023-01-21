@@ -141,7 +141,7 @@ class Player {
 
             if (this.atkTF == true) {
 
-                enemy[i].takeDamage(this.bash)
+                enemy[i].takeDamage(this.bash + (this.level / 2))
 
                 this.moveCounter = 1
 
@@ -151,7 +151,7 @@ class Player {
 
             if (this.atkTF == true) {
 
-                enemy[i].takeDamage(this.slash)
+                enemy[i].takeDamage(this.slash + (this.level / 2))
 
                 this.moveCounter2 = 1
 
@@ -161,7 +161,7 @@ class Player {
 
             if (this.atkTF == true) {
 
-                enemy[i].takeDamage(this.strike)
+                enemy[i].takeDamage(this.strike + (this.level / 2))
 
                 this.moveCounter3 = 1
 
