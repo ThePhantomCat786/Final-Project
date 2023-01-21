@@ -14,7 +14,7 @@ class Enemy {
         this.randMove = 0
         this.moveCounter = 0
         this.speedCount = 0
-        this.totalEnemies = 0
+        this.totalEnemies = 5
         this.time = false
         this.respawnTime = 0
         this.respawnMax = 1600
@@ -56,7 +56,7 @@ class Enemy {
 
             this.respawnTime++
 
-            //console.log(this.respawnTime)
+            console.log(this.respawnTime)
 
         }
 
@@ -72,6 +72,7 @@ class Enemy {
 
             this.render = true
             this.respawnTime = 0
+            this.respawnMax = this.respawnMax + 40
 
         }
 
@@ -87,13 +88,15 @@ class Enemy {
 
         } else if (dist(pX, pY, this.x, this.y - 50) < 25) {
 
+            this.veloX = 0
+
             this.veloX -= 0.15
 
         } else {
 
             this.veloX += (this.speed * (this.level/2))
 
-            if (this.x >= 2850) {
+            if (this.x == 2850) {
 
                 this.enemyCounter++
 
@@ -167,7 +170,7 @@ class Enemy {
         if (this.hp <= 0) {
 
             this.render = false
-            this.x = 0
+            this.x = -10
 
             this.enemyCounter = this.enemyCounter + 1
             this.enemyDead = true
@@ -176,31 +179,21 @@ class Enemy {
 
             player.addLevel()
 
-        }
+        } else {
 
-        if (this.enemyCounter == this.totalEnemies) {
-
-            this.time = true
-            this.respawnMax += 40
-
-            this.totalEnemies = 0
+            this.enemyDead = false
 
         }
-
 
 
     }
 
-    updateEnemyUi(totalEnemies, enemyCount) {
+    updateEnemyUi() {
 
         if (this.render == true) {
 
             text("HP: " + str(this.hp), this.x, this.y - 20)
             text("WAVE " + this.wave, 600, 40)
-
-        } else if (this.render == false && enemyCount == totalEnemies) {
-
-            text("TIME TO EXPLORE: " + str(this.respawnMax/60) + "s", 600, 55)
 
         }
 
@@ -208,37 +201,45 @@ class Enemy {
 
     enemyAdder(totalEnemies) {
 
-        if (this.addEnemy == true && this.enemyCounter == 0) {
+        if (this.enemyCounter == 1) {
+
+            this.enemyCounter = 0
+
+            console.log(this.enemyCounter)
+
+        }
+
+        if (this.addEnemy == true) {
 
             return true
 
         }
 
-        if (this.enemyCounter == totalEnemies) {
-
-            this.enemyCounter = 0
-
-        }
-
         this.addEnemy = false
 
-    }
-
-    setEnemies(totalEnemy, enemyCount) {
-
-        this.totalEnemies = 15
-        this.enemyCounter = enemyCount
-
-        console.log(this.enemyCounter)
-        //console.log(this.totalEnemies)
+        return this.addEnemy
 
     }
 
-    getEnemyStatus() {
+    setEnemies(totalEnemy) {
 
-        return this.enemyDead
+        this.totalEnemies = totalEnemy
 
     }
+
+    // getEnemyStatus() {
+
+    //     if (this.enemyDead == true) {
+
+    //         return this.enemyDead
+
+    //     } else {
+
+    //         return false
+
+    //     }
+
+    // }
 
     getX() {
 
