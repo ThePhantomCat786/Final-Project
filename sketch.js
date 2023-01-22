@@ -95,11 +95,17 @@ function draw() {
 
 		if (enemy[i].enemyAdder(totalEnemies) == true) {
 
-			totalEnemies = totalEnemies + 1
+			enemyCounter = enemyCounter + 1
 
 			console.log(i)
 
-			enemy.push(new Enemy(random(2400, 2500)))
+			if (enemyCounter == totalEnemies) {
+
+				enemy.push(new Enemy(random(2400, 2500)))
+
+				totalEnemies++
+
+			}
 
 			//enemy[i].setEnemies(totalEnemies)
 
