@@ -34,6 +34,9 @@ class Player {
 
         this.gOver = false
 
+        this.itemBoostTimer = 0
+        this.itemBoostMax = 1200
+
     }
 
     renderPlayer() {
@@ -45,28 +48,32 @@ class Player {
     playerMovement(collision, i) {
 
         // If the key is 'd' then we increase velocity quickly by 0.45
-		if (keyIsDown(68) && this.bgVeloX <= 1.5 && this.eVeloX <= 1.75 && this.bgX <= 1220) {
+		if (keyIsDown(68) && this.bgVeloX <= 1.5 && this.eVeloX <= 5.25 && this.bgX <= 1220) {
 	
 			//this.veloX += 0.8
             this.bgVeloX += (0.08 + (this.jumperSpeed))
             this.eVeloX += 0.08
+            //enemy[i].setEnemySpeed(this.eVeloX)
 
-        } else if (keyIsDown(68) && this.bgVeloX <= 1.5 && this.eVeloX <= 1.75 && this.bgX > 1220 && this.bgX <= 4720 ) {
+        } else if (keyIsDown(68) && this.bgVeloX <= 1.5 && this.eVeloX <= 5.25 && this.bgX > 1220 && this.bgX <= 4720 ) {
 
             this.bgVeloX += (0.08 + (this.jumperSpeed))
             this.eVeloX += 0.08
+            //enemy[i].setEnemySpeed(this.eVeloX)
         
             // If the key is 'a' then we decrease velocity quickly by 0.45
-        } else if (keyIsDown(65) && this.bgVeloX >= -1.5 && this.eVeloX <= 0.75 && this.bgX >= 520) {
+        } else if (keyIsDown(65) && this.bgVeloX >= -1.5 && this.eVeloX <= 1.75 && this.bgX >= 520) {
 	
 			//this.veloX -= 0.8
             this.bgVeloX -= (0.08 + (this.jumperSpeed))
-            this.eVeloX += 0.008
+            this.eVeloX += 0.08
+            //enemy[i].setEnemySpeed(this.eVeloX)
 
-        } else if (keyIsDown(65) && this.bgVeloX >= -1.5 && this.eVeloX <= 0.75 && this.bgX > 1220 && this.bgX <= 4720 ) {
+        } else if (keyIsDown(65) && this.bgVeloX >= -1.5 && this.eVeloX <= 1.75 && this.bgX > 1220 && this.bgX <= 4720 ) {
 
             this.bgVeloX -= (0.08 + (this.jumperSpeed))
-            this.eVeloX += 0.008
+            this.eVeloX += 0.08
+            //enemy[i].setEnemySpeed(this.eVeloX)
 
         }
 		// Otherwise the player velocity will be slowed to 0 overtime
@@ -75,10 +82,9 @@ class Player {
 			//this.veloX *= 0.0000000000001
             this.bgVeloX *= 0.5
             this.eVeloX *= 0.1
+            //enemy[i].setEnemySpeed(this.eVeloX)
 			
 		}
-
-        enemy[i].setEnemySpeed(this.eVeloX)
 
         // if (keyIsDown(68) && this.bgVeloX <= 4 && this.bgX > 1220 && this.bgX <= 4720) {
 
@@ -116,8 +122,8 @@ class Player {
 
         }
 
-        this.x = this.x + this.veloX
-        this.bgX = this.bgX + this. bgVeloX
+        
+        this.bgX = this.bgX + this.bgVeloX
 
     }
 
@@ -232,6 +238,27 @@ class Player {
 
     }
 
+    heal(hpBoost) {
+
+        if (this.hp < 100 + (10 * (this.level/10))) {
+
+            this.hp = this.hp + hpBoost
+
+        }
+
+    }
+
+    atkBoost(atk) {
+
+        for(let i = 0; i < this.itemBoostMax; i++) {
+
+            this.slash = this.slash + atk
+            this.strike = this.strike + atk
+
+        }
+
+    }
+
     gameOver() {
 
         return this.gOver
@@ -278,6 +305,12 @@ class Player {
     getPx() {
 
         return this.x
+
+    }
+
+    getBgVeloX() {
+
+        return this.bgVeloX
 
     }
 

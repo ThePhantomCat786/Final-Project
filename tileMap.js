@@ -66,7 +66,6 @@ class tileMap {
 
             this.MAP_ARRAY[i][n] = "g"
             this.GRASS_ARRAY.push(n)
-            //console.log(n)
 
             for (let j = 1;  j < this.cols; j++) {
 
@@ -118,14 +117,6 @@ class tileMap {
                     this.renderPos += 0.8
 
                     image(g2, this.renderPos, this.h * c, this.w, this.h)
-
-                } else if (this.MAP_ARRAY[r][c] == "s") {
-
-                    image(s, this.w * r - (this.camOffset), this.h * c, this.w, this.h)
-
-                } else if (this.MAP_ARRAY[r][c] == "s2") {
-
-                    image(s2, this.w * r - (this.camOffset), this.h * c, this.w, this.h)
 
                 }
 
@@ -188,11 +179,7 @@ class tileMap {
 
                 if (this.MAP_ARRAY[r][this.GRASS_ARRAY[i]] == "g") {
 
-                    //console.log(this.w*r - pX)
-
                     //return terrainCollision(this.w * r - (pX), player.getY(), player.getW(), player.getH(), world.getGx(), this.GRASS_ARRAY[i]*16, world.getGw(), world.getGh())
-
-                    //console.log(this.GRASS_ARRAY[i])
 
                     //rect(this.w * r - pX, this.GRASS_ARRAY[i]*16, 48, 16)
 
@@ -207,26 +194,15 @@ class tileMap {
 
         }
 
-
-        //console.log(pX)
-
         // for (let i = 0; i <= 42; i++) {
 
         //     // if (this.MAP_ARRAY[][] == "g") {
         //     // }
 
         //     if (this.MAP_ARRAY[int(pX/16)][i] == "g") {
-   
-        //         //console.log(this.MAP_ARRAY[int(pX/16)][i])
-
-        //         //console.log(int((pX + 640) / 16))
 
         //         //if ((pX/16) % 2)
-        //         //console.log(i)
-        //         //console.log(i*16)
-        //         //console.log(int(pX/16))
         //         let n = (i * 16)
-        //         //console.log(n + (n%16))
         //         return (n - (n%16))
 
         //     }
@@ -243,20 +219,36 @@ class tileMap {
 
                 if (this.MAP_ARRAY[r][this.GRASS_ARRAY[i]] == "g") {
 
-                    //console.log(this.w*r - pX)
-
                     //return terrainCollision(this.w * r - (pX), player.getY(), player.getW(), player.getH(), world.getGx(), this.GRASS_ARRAY[i]*16, world.getGw(), world.getGh())
-
-                    //console.log(this.GRASS_ARRAY[i])
 
                     //rect(eX, this.GRASS_ARRAY[i]*16, 52, 16)
 
-                    //console.log(int((eX/16) + (pX/16)))
-
                     let n = (this.GRASS_ARRAY[i] * 16)
 
-                    //console.log(n)
-                    //console.log(eX)
+                    return(n - (n%16))
+
+                }
+
+        
+            }
+
+        }
+
+    }
+
+    findHighestItem(eX, pX) {
+
+        for (var r = (int((eX/16) + (pX/16))); r > 0; r--) {
+
+            for (let i = 0; i < this.rows; i++) {
+
+                if (this.MAP_ARRAY[r][this.GRASS_ARRAY[i]] == "g") {
+
+                    //return terrainCollision(this.w * r - (pX), player.getY(), player.getW(), player.getH(), world.getGx(), this.GRASS_ARRAY[i]*16, world.getGw(), world.getGh())
+
+                    //rect(eX, this.GRASS_ARRAY[i]*16, 52, 16)
+
+                    let n = (this.GRASS_ARRAY[i] * 16)
 
                     return(n - (n%16))
 

@@ -9,6 +9,8 @@ class Enemy {
         this.w = 50
         this.h = 50
 
+        this.enemyImage = slimeL
+
         this.veloX = 0
         this.eVeloX = 0
         this.veloY = 0
@@ -20,13 +22,13 @@ class Enemy {
         this.respawnTime = 0
         this.respawnMax = 1600
         this.wave = 1
-        this.addEnemy = false
         this.enemyCounter = 0
         this.enemyDead = false
 
         // Stats
-        this.level = int(random(1, 4))
-        this.speed = 0.01
+        this.levelMax = 4
+        this.level = int(random(1, this.levelMax))
+        this.speed = 0.02
         this.hp = 10 + (10 * (this.level/10))
 
         // Moves
@@ -41,7 +43,7 @@ class Enemy {
 
         if (this.render == true) {
 
-            rect(this.x, this.y, this.w, this.h)
+            image(this.enemyImage, this.x, this.y, this.w, this.h)
 
         }
 
@@ -49,26 +51,19 @@ class Enemy {
 
     enemyMovement(pX, pY, enemyTerrainCollide) {
 
-        console.log(this.x)
-
-        // console.log(dist(pX, pY, this.x, this.y))
-
-        // console.log(pX)
-
         if (this.time == true) {
 
             this.respawnTime++
-
-            //console.log(this.respawnTime)
 
         }
 
         if (this.respawnTime == this.respawnMax) {
 
             this.wave++
-            this.addEnemy = true
+            this.levelMax++
             this.time = false
             this.x = random(2400, 2500)
+            this.level = int(random(1, this.levelMax))
             this.hp = 10 + (10 * (this.level/10))
 
             this.render = true
@@ -77,33 +72,56 @@ class Enemy {
 
         }
 
+        if (this.x < 0) {
 
+            this.veloX = 0
 
-        if (this.x >= (pX + 75)) {
+        }
+
+        if (keyIsDown(68) && this.eVeloX <= 1.5) {
+
+            this.eVeloX += 0.08
+            this.x -= (this.eVeloX)
+            console.log(this.eVeloX)
+
+        } else if (keyIsDown(65) && this.eVeloX <= 3) {
+
+            this.eVeloX += 0.08
+            this.x += (this.eVeloX)
+            console.log(this.eVeloX)
+
+        } else {
+
+            this.eVeloX *= 0.1
+
+        }
+
+        if (this.x <= (pX + 15)) {
 
             this.veloX *= 0.989
 
         } 
         
-        if (this.x <= (pX - 25) && this.x >= 0) {
+        if (this.x <= (pX - 25) && this.veloX >= -2 && this.x >= 0) {
 
-            //this.veloX *= -0.8
             this.veloX -= 0.75
+            this.enemyImage = slimeR
 
-        } else if (this.veloX <= 3 && this.x >= 0) {
+        } else if (this.veloX <= 2 && this.x >= 0) {
 
             this.veloX += (this.speed * (this.level/2))
-            this.veloX += (this.eVeloX * 5)
+            this.enemyImage = slimeL
 
         }
+
+        this.veloX += (this.speed * (this.level/2))
+        this.x = this.x - this.veloX
 
         if (this.x == 2850) {
 
             this.enemyCounter++
 
         }
-
-        this.x = this.x - this.veloX
 
         if (this.x <= 0) {
 
@@ -168,19 +186,24 @@ class Enemy {
 
         if (this.hp <= 0) {
 
-            this.render = false
-            this.x = -100
+            //this.render = false
+            this.x = -2000
 
             this.enemyCounter = this.enemyCounter + 1
             this.enemyDead = true
-
-            //console.log(this.enemyCounter)
 
             player.addLevel()
 
         } else {
 
             this.enemyDead = false
+
+        }
+
+        if (this.enemyCounter == 1) {
+
+            this.enemyCounter = 0
+            this.time = true
 
         }
 
@@ -198,40 +221,17 @@ class Enemy {
 
     }
 
-    enemyAdder(totalEnemies) {
-
-        if (this.enemyCounter == 1) {
-
-            this.enemyCounter = 0
-            this.time = true
-
-            //console.log(this.enemyCounter)
-
-        }
-
-        if (this.addEnemy == true) {
-
-            return true
-
-        }
-
-        this.addEnemy = false
-
-        return this.addEnemy
-
-    }
-
     setEnemies(totalEnemy) {
 
         this.totalEnemies = totalEnemy
 
     }
 
-    setEnemySpeed(eVeloX) {
+    // setEnemySpeed(eVeloX) {
 
-        this.eVeloX = eVeloX
+    //     this.eVeloX = eVeloX
 
-    }
+    // }
 
     // getEnemyStatus() {
 

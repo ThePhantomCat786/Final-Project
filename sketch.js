@@ -5,8 +5,13 @@ function preload() {
 	g = loadImage("Grass1.png")
 	g2 = loadImage("Grass2.png")
 
-	s = loadImage("Snow1.png")
-	s2 = loadImage("Snow2.png")
+	slimeL = loadImage("slimeLeft.gif")
+	slimeR = loadImage("slimeRight.gif")
+
+	chickenNugget = loadImage("chickennugget.png")
+	elixr = loadImage("elixr.png")
+	potion = loadImage("potion.png")
+	soda = loadImage("soda.png")
 
 }
 
@@ -17,6 +22,7 @@ function setup() {
 	//mainMenu = new menu()
 
 	enemy = []
+	item = []
 	initX = []
 
 	pX = 540
@@ -28,13 +34,26 @@ function setup() {
 	eX = 0
 	eY = 0
 
+	iX = 0
+	iVeloX = 0
+	igY = 0
+
 	terrainCollide = false
 	enemyTerrainCollide = false
+	itemTerrainCollide = false
 
 	world = new tileMap(5120, 46, 16, 16, pX)
 	world.createMap()
 
 	player = new Player(pX, pY, pW, pH)
+
+	totalItems = 10
+
+	for (i = 0; i <= totalItems; i++) {
+
+		item[i] = new Item()
+		
+	}
 
 	totalEnemies = 5
 
@@ -71,7 +90,6 @@ function draw() {
 	
 		player.renderPlayer()
 		player.updatePlayerUi()
-
 		player.playerMovement(terrainCollide, i)
 	
 
@@ -83,33 +101,31 @@ function draw() {
 		egY = world.findHighestEnemy(eX, pX)
 	
 		enemyTerrainCollilde = terrainCollisionEnemy(enemy[i].getX(), enemy[i].getY(), enemy[i].getW(), enemy[i].getH(), world.getGx(), egY, world.getGw(), world.getGh(), i) 
-	
+
 		enemy[i].renderEnemy()
 		enemy[i].updateEnemyUi()
 		enemy[i].enemyMovement(player.getPx(), pY, enemyTerrainCollide)
 	
 		// Attack checks
-		enemy[i].enemyAttack(pX, pY, pW, pH)
-		console.log(pX)
+		enemy[i].enemyAttack(player.getPx(), pY, pW, pH)
 		player.playerAttack(eX, eY, enemy[i].getW(), enemy[i].getH(), i)
 
-		if (enemy[i].enemyAdder(totalEnemies) == true) {
+	}
 
-			enemyCounter = enemyCounter + 1
+	for (var i = 0; i <= totalItems; i++) {
 
-			console.log(i)
+		//iX = item[i].getX()
 
-			if (enemyCounter == totalEnemies) {
+		igY = world.findHighestItem(item[i].getX(), player.getX())
 
-				enemy.push(new Enemy(random(2400, 2500)))
+		itemTerrainCollilde = terrainCollisionItem(item[i].getX(), item[i].getY(), item[i].getW(), item[i].getH(), world.getGx(), igY, world.getGw(), world.getGh(), i) 
 
-				totalEnemies++
+		item[i].renderItem()
+		item[i].updateItemUi()
+		iVeloX = player.getBgVeloX()
+		item[i].itemMovement(itemTerrainCollide, iVeloX)
 
-			}
-
-			//enemy[i].setEnemies(totalEnemies)
-
-		}
+		item[i].checkCollection(player.getPx(), player.getY(), pW, pH)
 
 	}
 
