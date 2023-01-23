@@ -45,28 +45,28 @@ class Item {
             this.atkBoost = int(random(3, 6))
             this.itemImage = chickenNugget
 
-        } else if (this.randItem == 1) {
+        } else if (this.randItem == 0) {
 
             // Heals 10hp
             this.itemName = "Potion"
             this.heal = 10
             this.itemImage = potion
 
-        } else if (this.randItem == 2) {
+        } else if (this.randItem == 1) {
 
             // Boosts attack
             this.itemName = "Elixr"
             this.atkBoost = int(random(2, 5))
             this.itemImage = elixr
 
-        } else if (this.randItem == 3) {
+        } else if (this.randItem == 2) {
 
             // Heals 10hp
             this.itemName = "Potion"
             this.heal = 10
             this.itemImage = potion
 
-        } else if (this.randItem == 4) {
+        } else if (this.randItem == 3) {
 
             // Boosts attack
             this.itemName = "Soda"
@@ -117,25 +117,25 @@ class Item {
                 this.atkBoost = int(random(3, 6))
                 this.itemImage = chickenNugget
     
-            } else if (this.randItem == 1) {
+            } else if (this.randItem == 0) {
     
                 this.itemName = "Potion"
                 this.heal = 10
                 this.itemImage = potion
     
-            } else if (this.randItem == 2) {
+            } else if (this.randItem == 1) {
     
                 this.itemName = "Elixr"
                 this.atkBoost = int(random(2, 5))
                 this.itemImage = elixr
     
-            } else if (this.randItem == 3) {
+            } else if (this.randItem == 2) {
     
                 this.itemName = "Potion"
                 this.heal = 10
                 this.itemImage = potion
     
-            } else if (this.randItem == 4) {
+            } else if (this.randItem == 3) {
     
                 this.itemName = "Soda"
                 this.atkBoost = int(random(1, 3))
