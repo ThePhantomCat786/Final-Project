@@ -2,7 +2,7 @@ class Item {
 
     constructor() {
 
-        this.x = random(540, 4000)
+        this.x = random(540, 1820)
         this.y = -10
         this.w = 20
         this.h = 20
@@ -70,7 +70,7 @@ class Item {
     }
 
 
-    itemMovement(itemTerrainCollide, iVeloX) {
+    itemMovement(i, igY) {
 
         if (this.time == true) {
 
@@ -81,7 +81,7 @@ class Item {
         if (this.respawnTime == this.respawnMax) {
 
             this.time = false
-            this.x = random(500, 4000)
+            this.x = random(500, 1820)
             this.y = -10
 
             this.randItem = int(random(0, 4))
@@ -125,31 +125,32 @@ class Item {
         }
 
         // If the key is 'd' then we increase velocity quickly by 0.45
-		if (keyIsDown(68) && this.bgVeloX <= 3) {
+		if (keyIsDown(68) && this.bgVeloX <= 7.5) {
 
-            this.bgVeloX += 0.08
+            this.bgVeloX += 0.75
             this.x = this.x - this.bgVeloX
 
-        } else if (keyIsDown(65) && this.bgVeloX <= 3) {
+        } else if (keyIsDown(65) && this.bgVeloX <= 7.5) {
 	
-            this.bgVeloX += 0.08
+            this.bgVeloX += 0.75
             this.x = this.x + this.bgVeloX
 
         } else {
 
-            this.bgVeloX *= 0.5
-            this.x = this.x + this.bgVeloX
+            this.bgVeloX *= 0.1
 			
 		}
 
-        if (itemTerrainCollide == false && this.y < 620) {
+        if (terrainCollisionItem(item[i].getX(), item[i].getY(), item[i].getW(), item[i].getH(), world.getGx(), igY, world.getGw(), world.getGh(), i) == false && this.y < 620) {
 
-            this.veloY = this.veloY + 2.5
+            this.veloY = this.veloY + 0.5
             this.y = this.y + this.veloY
 
-        } 
-        
-        this.veloY = 0
+        } else {
+            
+            this.veloY = 0
+
+        }
 
     }
 
@@ -166,7 +167,7 @@ class Item {
                 this.x = -2000
                 this.time = true
 
-                this.updateItemUi()
+                this.itemMessageMax = 300
 
             } else if (this.itemName == "Chicken Nuggets") {
 
@@ -205,23 +206,27 @@ class Item {
 
         if (this.itemMessageCount < this.itemMessageMax) {
 
+            textSize(14)
+
             if (this.itemName == "Chicken Nuggets") {
 
-                text("PICKED UP: " + this.itemName + "!" + "  +" + this.atkBoost + " ATK for 20s!", 600, 60)
+                text("PICKED UP: " + this.itemName + "!" + "  +" + this.atkBoost + " ATK for 20s!", 550, 60)
     
             } else if (this.itemName == "Elixr") {
     
-                text("PICKED UP: " + this.itemName + "!" + "  +" + this.atkBoost + " ATK for 20s!", 600, 75)
+                text("PICKED UP: " + this.itemName + "!" + "  +" + this.atkBoost + " ATK for 20s!", 550, 75)
     
             } else if (this.itemName == "Soda") {
     
-                text("PICKED UP: " + this.itemName + "!" + "  +" + this.atkBoost + " ATK for 20s!", 600, 90)
+                text("PICKED UP: " + this.itemName + "!" + "  +" + this.atkBoost + " ATK for 20s!", 550, 90)
     
             } else if (this.itemName == "Potion") {
     
-                text("PICKED UP: " + this.itemName + "!" + "  +" + this.heal + " 10HP!", 600, 105)
+                text("PICKED UP: " + this.itemName + "!" + "  +" + " 10HP!", 550, 105)
     
             }
+
+            textSize(20)
 
             this.itemMessageCount++
 

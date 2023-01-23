@@ -1,72 +1,50 @@
+// This is the class that sets up the tile map for the world
 class tileMap {
 
-    constructor(rows, cols, w, h, oldX) {
+    // Constructor sets variables
+    constructor(rows, cols, w, h) {
         
+        // Map attributes
         this.w = w
         this.h = h
         this.rows = rows
         this.cols = cols
-        this.rnd = 0
-        this.options = ["g", "s", "g2"]
+
+        // Arrays for map and grass
         this.MAP_ARRAY = []
         this.GRASS_ARRAY = []
 
-        this.preBordersR = 0
-        this.preBordersL = 0
-        this.counter = 0
-        this.camOffset = 0
-
+        // Initialize the render position
         this.renderPos = 0
 
-        this.oldX = oldX
+        // Location variables for grass
         this.gX = 0
         this.gY = 0
 
     }
 
-    // createMap() {
-
-    //     for (var i = 0; i < this.cols; i++) {
-
-    //         this.MAP_ARRAY.push([])
-
-    //         for (var j = 0; j < this.rows; j++) {
-
-    //             if (i == 8) {
-
-    //                 this.rnd = int(Math.random() * 2)
-
-    //             } else {
-
-    //                 this.rnd = 2
-
-    //             }
-
-    //             this.MAP_ARRAY[i][j] = this.options[this.rnd]
-
-    //         }
-
-    //     }
-
-    // }
-
+    // This function creates the map
     createMap() {
 
+        // First we make a loop and set it up to the amount of rows
         for (let i = 0; i < this.rows; i++) {
 
+            // Using Perlin noise to generate the terrain!
             let n = abs(int(noise(i/64)*16)) + 12
 
-            let SUBWAY = [n]
-
+            // If there is no sub-array in the current spot add one
             if (this.MAP_ARRAY[i] == undefined) {
 
                 this.MAP_ARRAY[i] = []
 
             }
 
+            // Set the top part of the map to grass
             this.MAP_ARRAY[i][n] = "g"
+            // Set the grass array up for grass layer
             this.GRASS_ARRAY.push(n)
 
+            // Fill in rest with dirt
             for (let j = 1;  j < this.cols; j++) {
 
                 this.MAP_ARRAY[i][n+j] = "g2"
@@ -78,30 +56,23 @@ class tileMap {
     }
 
 
+    // This function draws the map
     drawMap(pX, pY) {
 
-        this.preBordersR = pX + 640
-        this.preBordersL = pX - 640
-
-        //tint(44, 44, 44)
+        // Sets the background
         image(bg, 0, 0, 1280, 720)
-        //noTint()
 
-
-        // if (this.oldX + pX > (this.preBordersR / 4) * 3 || this.oldX + pX < (this.preBordersR) / 4) {
-
-        //     this.camOffset = pX*2
-
-        // } else {
-
-        //     this.camOffset = 0
-
-        // }
-
+        // This loop is where the map is drawn
+        // The map has to be drawn at the location of the user
+        // Then we make it to where there is a 1280 wide window of space where we can see 
+        // Everything else renders off screen
+        // The problem with this is lag, therefore if we move where the images are rendered and they render with our movement it is way less laggy
+        // This is because what you see is what you get: no blocks rendered outside the viewing window
         for (var c = Math.abs(int(pY/16)); c < (Math.abs(pY/16) + 720/16); c++) {
 
             for (var r = Math.abs(int((pX-540)/16)); r < (Math.abs((pX)/16) + 2560/16); r++) {
 
+                // Rendering for grass
                 if (this.MAP_ARRAY[r][c] == "g") {
 
                     this.renderPos = this.w * r - (pX)
@@ -110,6 +81,7 @@ class tileMap {
 
                     image(g, this.renderPos, this.h * c, this.w, this.h)
 
+                // Rendering for dirt
                 } else if (this.MAP_ARRAY[r][c] == "g2") {
 
                     this.renderPos = this.w * r - (pX)
@@ -120,69 +92,26 @@ class tileMap {
 
                 }
 
-                //this.oldX = pX
-
-                //else if (this.oldX - this.pX < 0) {
-
-                //     if (this.MAP_ARRAY[r][c] == "g") {
-
-                //         image(g, this.w * r, this.h * c, this.w, this.h)
-    
-                //     } else if (this.MAP_ARRAY[r][c] == "g2") {
-    
-                //         image(g2, this.w * r, this.h * c, this.w, this.h)
-    
-                //     } else if (this.MAP_ARRAY[r][c] == "s") {
-    
-                //         image(s, this.w * r, this.h * c, this.w, this.h)
-    
-                //     } else if (this.MAP_ARRAY[r][c] == "s2") {
-    
-                //         image(s2, this.w * r, this.h * c, this.w, this.h)
-    
-                //     }
-
-                //     this.oldX = pX
-
-                // } else {
-
-                //     if (this.MAP_ARRAY[r][c] == "g") {
-
-                //         image(g, this.w * r + (pX - 1280), this.h * c, this.w, this.h)
-
-                //     } else if (this.MAP_ARRAY[r][c] == "g2") {
-
-                //         image(g2, this.w * r + (pX - 1280), this.h * c, this.w, this.h)
-
-                //     } else if (this.MAP_ARRAY[r][c] == "s") {
-
-                //         image(s, this.w * r + (pX - 1280), this.h * c, this.w, this.h)
-
-                //     } else if (this.MAP_ARRAY[r][c] == "s2") {
-
-                //         image(s2, this.w * r + (pX - 1280), this.h * c, this.w, this.h)
-
-                //     }
-                
-                //}
-
             }
-            
         }
     }
 
+    // This is the first of three "findHighest" functions
+    // This goes through the array of grass blocks
+    // Based off where the player is located, it will return the location of that grass block
     findHighest(pX) {
 
+        // This loops throught the array
+        // This loop is designed for the exact location of the player as it does px/16 and adds the 540 shift from the start
         for (var r = (int(pX/16) + 34); r < (int(pX/16) + 35); r++) {
 
+            // Loops thru grass blocks
             for (let i = 0; i < this.rows; i++) {
 
                 if (this.MAP_ARRAY[r][this.GRASS_ARRAY[i]] == "g") {
 
-                    //return terrainCollision(this.w * r - (pX), player.getY(), player.getW(), player.getH(), world.getGx(), this.GRASS_ARRAY[i]*16, world.getGw(), world.getGh())
-
-                    //rect(this.w * r - pX, this.GRASS_ARRAY[i]*16, 48, 16)
-
+                    // Sets n to the grass block location
+                    // We multiply by 16 as the blocks are 16 pixels wide
                     let n = (this.GRASS_ARRAY[i] * 16)
 
                     return(n - (n%16))
@@ -194,35 +123,19 @@ class tileMap {
 
         }
 
-        // for (let i = 0; i <= 42; i++) {
-
-        //     // if (this.MAP_ARRAY[][] == "g") {
-        //     // }
-
-        //     if (this.MAP_ARRAY[int(pX/16)][i] == "g") {
-
-        //         //if ((pX/16) % 2)
-        //         let n = (i * 16)
-        //         return (n - (n%16))
-
-        //     }
-
-        // }
-
     }
 
+    // This is the second find highest and it is for the enemy
+    // It is the exact same concept as the first one
     findHighestEnemy(eX, pX) {
 
+        // We use the enemies location PLUS the players location (which is technically the background location)
         for (var r = (int((eX/16) + (pX/16))); r > 0; r--) {
 
             for (let i = 0; i < this.rows; i++) {
 
                 if (this.MAP_ARRAY[r][this.GRASS_ARRAY[i]] == "g") {
 
-                    //return terrainCollision(this.w * r - (pX), player.getY(), player.getW(), player.getH(), world.getGx(), this.GRASS_ARRAY[i]*16, world.getGw(), world.getGh())
-
-                    //rect(eX, this.GRASS_ARRAY[i]*16, 52, 16)
-
                     let n = (this.GRASS_ARRAY[i] * 16)
 
                     return(n - (n%16))
@@ -236,6 +149,8 @@ class tileMap {
 
     }
 
+    // Final find highest and its for the items
+    // exact same as previous
     findHighestItem(eX, pX) {
 
         for (var r = (int((eX/16) + (pX/16))); r > 0; r--) {
@@ -244,10 +159,6 @@ class tileMap {
 
                 if (this.MAP_ARRAY[r][this.GRASS_ARRAY[i]] == "g") {
 
-                    //return terrainCollision(this.w * r - (pX), player.getY(), player.getW(), player.getH(), world.getGx(), this.GRASS_ARRAY[i]*16, world.getGw(), world.getGh())
-
-                    //rect(eX, this.GRASS_ARRAY[i]*16, 52, 16)
-
                     let n = (this.GRASS_ARRAY[i] * 16)
 
                     return(n - (n%16))
@@ -261,6 +172,7 @@ class tileMap {
 
     }
 
+    // Getters and setters below
     getGx() {
 
         return this.gX

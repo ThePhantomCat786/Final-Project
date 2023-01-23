@@ -47,10 +47,10 @@ function terrainCollisionItem(eX, eY, eW, eH, gX, gY, gW, gH, i) {
     gW = 52
 
     // fill(255)
-    // rect(eX, gY, gW, gH)
+    //rect(eX, gY, gW, gH)
     // fill(0)
 
-    if (gY <= (eY + 20)) {
+    if (gY <= eY + 4) {
 
         eY = eY - 16
 
@@ -58,11 +58,7 @@ function terrainCollisionItem(eX, eY, eW, eH, gX, gY, gW, gH, i) {
 
     }
 
-    if (eX < eX + gW && eX + eW > eX && eY < gY + gH && eY + eH > gY) {
-
-        return true
-
-    }
+    return (eX < eX + gW && eX + eW > eX && eY < gY + gH && eY + eH > gY)
 
 }
 
