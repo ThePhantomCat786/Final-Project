@@ -60,7 +60,7 @@ class tileMap {
     drawMap(pX, pY) {
 
         // Sets the background
-        image(bg, 0, 0, 1280, 720)
+        image(bg, 0, -135, 1280, 720)
 
         // This loop is where the map is drawn
         // The map has to be drawn at the location of the user

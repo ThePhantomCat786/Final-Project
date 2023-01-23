@@ -261,32 +261,7 @@ class Enemy {
 
     }
 
-    setEnemies(totalEnemy) {
-
-        this.totalEnemies = totalEnemy
-
-    }
-
-    // setEnemySpeed(eVeloX) {
-
-    //     this.eVeloX = eVeloX
-
-    // }
-
-    // getEnemyStatus() {
-
-    //     if (this.enemyDead == true) {
-
-    //         return this.enemyDead
-
-    //     } else {
-
-    //         return false
-
-    //     }
-
-    // }
-
+    // Getters and setters
     getX() {
 
         return this.x

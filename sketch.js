@@ -1,3 +1,8 @@
+// A Slimy Day
+// Date: 1/24/23
+// Author: Ayaz B.
+// Description: A fun little game where you survive against slimes and find items to help you survive
+
 // Function to load images
 function preload() {
 	
@@ -5,11 +10,20 @@ function preload() {
 	menuBg = loadImage("menuBackground.jpg")
 
 	// Game background
-	bg = loadImage("pixelSky.png")
+	bg = loadImage("skybg.jpg")
 
 	// Grass texture
-	g = loadImage("Grass1.png")
+	g = loadImage("Grass.png")
 	g2 = loadImage("Grass2.png")
+
+	// Player texture
+	heroIdle = loadImage("heroIdle.png")
+	heroL = loadImage("heroL.gif")
+	heroR = loadImage("heroR.gif")
+	jumpL = loadImage("jumpL.png")
+	jumpR = loadImage("jumpR.png")
+	heroAtkL = loadImage("heroAtkL.png")
+	heroAtkR = loadImage("heroAtkR.png")
 
 	// Enemy texture
 	slimeL = loadImage("slimeLeft.gif")
@@ -46,7 +60,7 @@ function setup() {
 	// Initialize player location variables
 	pX = 540
 	pY = 10
-	pW = 50
+	pW = 100
 	pH = 100
 	fgX = 0
 

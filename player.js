@@ -9,6 +9,7 @@ class Player {
         this.y = y
         this.w = w
         this.h = h
+        this.playerImage = heroIdle
 
         // Speed variables
         this.veloX = 0
@@ -49,7 +50,7 @@ class Player {
     // As you can see the player does not move at all
     renderPlayer() {
 
-        rect(540, this.y, this.w, this.h)
+        image(this.playerImage, 540, this.y, this.w, this.h)
 
     }
 
@@ -61,19 +62,23 @@ class Player {
 		if (keyIsDown(68) && this.bgVeloX <= 1.5 && this.bgX <= 1220) {
 	
             this.bgVeloX += (0.08 + (this.jumperSpeed))
+            this.playerImage = heroR
 
         } else if (keyIsDown(68) && this.bgVeloX <= 1.5 && this.bgX > 1220 && this.bgX <= 4720 ) {
 
             this.bgVeloX += (0.08 + (this.jumperSpeed))
+            this.playerImage = heroR
         
         // If the key is 'a' then the velocity will decrease
         } else if (keyIsDown(65) && this.bgVeloX >= -1.5 && this.bgX >= 520) {
 	
             this.bgVeloX -= (0.08 + (this.jumperSpeed))
+            this.playerImage = heroL
 
         } else if (keyIsDown(65) && this.bgVeloX >= -1.5 && this.bgX > 1220 && this.bgX <= 4720 ) {
 
             this.bgVeloX -= (0.08 + (this.jumperSpeed))
+            this.playerImage = heroL
 
         
 		// Otherwise the player velocity will be slowed to 0 overtime
@@ -83,6 +88,13 @@ class Player {
 			
 		}
 
+        // Resets the player image to idle when he stops
+        if (this.bgVeloX < 0.007 && this.bgVeloX > -0.007) {
+
+            this.playerImage = heroIdle
+
+        }
+
         // If the player presses space, they will jump
         if (keyIsDown(32) && this.jumpRestrict < 12) {
 
@@ -91,6 +103,20 @@ class Player {
             this.jumpRestrict++
 
             this.jumperSpeed = 0.5
+
+            if (this.bgVeloX > 0) {
+
+                this.playerImage = jumpR
+
+            } else if (this.bgVeloX < 0) {
+
+                this.playerImage = jumpL
+
+            } else {
+
+                this.playerImage = jumpR
+
+            }
 
         } else {
 
@@ -147,6 +173,20 @@ class Player {
 
                 this.moveCounter = 1
 
+                if (this.bgVeloX > 0) {
+
+                    this.playerImage = heroAtkR
+    
+                } else if (this.bgVeloX < 0) {
+    
+                    this.playerImage = heroAtkL
+    
+                } else {
+    
+                    this.playerImage = heroAtkR
+    
+                }
+
             }
 
         } else if (keyIsDown(75) && this.moveCounter2 == 0) {
@@ -158,6 +198,20 @@ class Player {
 
                 this.moveCounter2 = 1
 
+                if (this.bgVeloX > 0) {
+
+                    this.playerImage = heroAtkR
+    
+                } else if (this.bgVeloX < 0) {
+    
+                    this.playerImage = heroAtkL
+    
+                } else {
+    
+                    this.playerImage = heroAtkR
+    
+                }
+
             }
 
         } else if (keyIsDown(76) && this.moveCounter3 == 0) {
@@ -168,6 +222,20 @@ class Player {
                 enemy[i].takeDamage(this.strike + (this.level / 2))
 
                 this.moveCounter3 = 1
+
+                if (this.bgVeloX > 0) {
+
+                    this.playerImage = jumpR
+    
+                } else if (this.bgVeloX < 0) {
+    
+                    this.playerImage = jumpL
+    
+                } else {
+    
+                    this.playerImage = jumpR
+    
+                }
 
             }
 

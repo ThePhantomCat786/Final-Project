@@ -1,12 +1,14 @@
+// This is not a class
+// It is the collision file where all the collision functions stay
+
+// This is the player terrain collision function
 function terrainCollision(pX, pY, pW, pH, gX, gY, gW, gH) {
 
-    gW = 52
+    // Makes a wider standing platform
+    gW = 108
 
-    // fill(255)
-    // //rect(pX, gY, gW, gH)
-    // fill(0)
-
-    if (gY <= (pY + 90)) {
+    // If the player hits a dirt block on the side, the will automatically go up it
+    if (gY <= (pY + 84)) {
 
         pY = pY - 16
 
@@ -14,17 +16,16 @@ function terrainCollision(pX, pY, pW, pH, gX, gY, gW, gH) {
 
     }
 
+    // Checks and returns if the player is touching the ground or not
     return (pX < pX + gW && pX + pW > pX && pY < gY + gH && pY + pH > gY) 
 
 }
 
+// This is the enemy terrain collision function
+// Same as player
 function terrainCollisionEnemy(eX, eY, eW, eH, gX, gY, gW, gH, i) {
 
     gW = 52
-
-    // fill(255)
-    // rect(eX, gY, gW, gH)
-    // fill(0)
 
     if (gY <= (eY + 50)) {
 
@@ -42,13 +43,11 @@ function terrainCollisionEnemy(eX, eY, eW, eH, gX, gY, gW, gH, i) {
 
 }
 
+// This is the item terrain collision function
+// Same as enemy
 function terrainCollisionItem(eX, eY, eW, eH, gX, gY, gW, gH, i) {
 
     gW = 52
-
-    // fill(255)
-    //rect(eX, gY, gW, gH)
-    // fill(0)
 
     if (gY <= eY + 4) {
 
@@ -62,6 +61,7 @@ function terrainCollisionItem(eX, eY, eW, eH, gX, gY, gW, gH, i) {
 
 }
 
+// This function is used to check the collision between the enemy and the player
 function enemyCollision(pX, pY, pW, pH, eX, eY, eW, eH) {
 
     if (pX < eX + eW && pX + pW > eX && pY < eY + eH && pY + pH > eY) {
@@ -76,6 +76,7 @@ function enemyCollision(pX, pY, pW, pH, eX, eY, eW, eH) {
 
 }
 
+// This function is used to check the collision between the item and the player
 function itemCollision(pX, pY, pW, pH, eX, eY, eW, eH) {
 
     if (pX < eX + eW && pX + pW > eX && pY < eY + eH && pY + pH > eY) {
