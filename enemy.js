@@ -28,7 +28,7 @@ class Enemy {
         // Death and respawn time variables
         this.time = false
         this.respawnTime = 0
-        this.respawnMax = 1600
+        this.respawnMax = 120
         this.wave = 1
         this.enemyCounter = 0
         this.enemyDead = false
@@ -81,7 +81,7 @@ class Enemy {
 
             this.render = true
             this.respawnTime = 0
-            this.respawnMax = this.respawnMax + 40
+            this.respawnMax = this.respawnMax + 30
 
         }
 
